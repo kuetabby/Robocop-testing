@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import RoboList from "../components/RoboList";
-import SearchBox from "../components/SearchBox";
 import { connect } from "react-redux";
-import Scroll from "../components/Scroll";
 import { setSearchField, requestRobots } from "../actions";
 import "./App.css";
+import RoboList from "../components/RoboList";
+import SearchBox from "../components/SearchBox";
+import Scroll from "../components/Scroll";
 
 const mapStateToProps = state => {
   return {
@@ -22,32 +22,33 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-function App(props) {
-  useEffect(() => {
-    props.onRequestRobot();
-  }, []);
+function App(props){
+	const { searchField, robots ,isPending, onSearchChange, onRequestRobot  } = props;
+	useEffect(() =>{
+		onRequestRobot()
+	},[])
 
-  const { searchField, robots, isPending, onSearchChange } = props;
-  const filteredRobot = robots.filter(robot => {
-    return robot.name.toLowerCase().includes(searchField.toLowerCase());
-  });
+  const filterRobots = () => {
+    return robots.filter(robot => {
+      return robot.name.toLowerCase().includes(searchField.toLowerCase());
+    });
+  };
 
-  if (isPending) {
-    return <h1> Loading </h1>;
-  } else {
     return (
       <div className="tc">
         <h1 className="f2"> Robocop </h1>
-
-        <SearchBox searchChange={onSearchChange} />
+        <SearchBox searchChange={onSearchChange} values={searchField} />
 
         <Scroll>
-          <RoboList robots={filteredRobot} />
+          {isPending ? (
+            <h1>Loading...</h1>
+          ) : (
+            <RoboList robots={filterRobots()} />
+          )}
         </Scroll>
       </div>
     );
   }
-}
 
 export default connect(
   mapStateToProps,
