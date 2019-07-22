@@ -22,11 +22,18 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-function App(props){
-	const { searchField, robots ,isPending, onSearchChange, onRequestRobot  } = props;
-	useEffect(() =>{
-		onRequestRobot()
-	},[])
+function App(props) {
+  const {
+    searchField,
+    robots,
+    isPending,
+    onSearchChange,
+    onRequestRobot
+  } = props;
+
+  useEffect(() => {
+    onRequestRobot();
+  }, [onRequestRobot]);
 
   const filterRobots = () => {
     return robots.filter(robot => {
@@ -34,21 +41,17 @@ function App(props){
     });
   };
 
-    return (
-      <div className="tc">
-        <h1 className="f2"> Robocop </h1>
-        <SearchBox searchChange={onSearchChange} values={searchField} />
+  return (
+    <div className="tc">
+      <h1 className="f2"> Robocop </h1>
+      <SearchBox searchChange={onSearchChange} values={searchField} />
 
-        <Scroll>
-          {isPending ? (
-            <h1>Loading...</h1>
-          ) : (
-            <RoboList robots={filterRobots()} />
-          )}
-        </Scroll>
-      </div>
-    );
-  }
+      <Scroll>
+        {isPending ? <h1>Loading...</h1> : <RoboList robots={filterRobots()} />}
+      </Scroll>
+    </div>
+  );
+}
 
 export default connect(
   mapStateToProps,
