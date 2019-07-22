@@ -10,5 +10,5 @@ test("search without crashing", () => {
 
   const { getByTestId } = render(<SearchBox {...props} />);
 
-  expect(getByTestId("search")).toBeInTheDocument();
+  expect(getByTestId("search")).toBeDefined();
 });

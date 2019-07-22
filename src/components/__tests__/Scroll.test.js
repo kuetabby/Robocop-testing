@@ -6,5 +6,5 @@ test("showing children without crashing", () => {
   const sleepingChild = "This is for testing only";
 
   const { getByText, debug } = render(<Scroll>{sleepingChild}</Scroll>);
-  expect(getByText(/this is for testing only/i)).toBeInTheDocument();
+  expect(getByText(/this is for testing only/i)).toBeDefined();
 });

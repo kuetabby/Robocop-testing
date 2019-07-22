@@ -27,7 +27,7 @@ function renderWithRedux(
 }
 
 test("robots without crashing", async () => {
-  const { getByText, queryByText } = renderWithRedux(<App />, {
+  const { getByText } = renderWithRedux(<App />, {
     initialState: {
       requestRobots: {
         isPending: false,
@@ -47,9 +47,8 @@ test("robots without crashing", async () => {
     }
   });
 
-  expect(queryByText(/leanne graham/i)).not.toBeInTheDocument();
   await wait(() => {
-    expect(getByText(/leanne graham/i)).toBeInTheDocument();
+    expect(getByText(/leanne graham/i)).toBeDefined();
   });
 });
 
@@ -77,6 +76,6 @@ test("search without crashing", async () => {
   fireEvent.change(getByTestId("search"), { target: { value: "leanne" } });
 
   await wait(() => {
-    expect(getByText(/leanne graham/i)).toBeInTheDocument();
+    expect(getByText(/leanne graham/i)).toBeDefined();
   });
 });

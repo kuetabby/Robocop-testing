@@ -5,5 +5,5 @@ import { robots } from "../robots";
 
 test("render without crashing", () => {
   const { getByText } = render(<RoboList robots={robots} />);
-  expect(getByText(/Leanne Graham/i)).toBeInTheDocument();
+  expect(getByText(/Leanne Graham/i)).toBeDefined();
 });
